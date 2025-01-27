@@ -1,8 +1,32 @@
 
+'use client';
 import React from 'react';
+import { useState } from 'react';
+import { FormEvent } from 'react';
 import Link from 'next/link';
+import { api } from '../utili/axiosConfig';
 
-export default function layout() {
+export default function Register() {
+
+
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const handleRegistration = async (e : FormEvent) => {
+      e.preventDefault();
+      try {
+          const res = await api.post("/users/register-process", { name, email, password });
+          alert(res.data.message);
+      } catch (error: any) {
+          console.log(
+              error.response.data
+          );
+
+      }
+  }
+
+
   return (
     <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -14,7 +38,7 @@ export default function layout() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form action="#" method="POST" className="space-y-6" onSubmit={handleRegistration}>
 
           <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
@@ -25,6 +49,7 @@ export default function layout() {
                   id="name"
                   name="name"
                   type="name"
+                  onChange={(e) => setName(e.target.value)}
                   required
                   autoComplete="name"
                   className="block w-full rounded-md  border border-black/10 bg-white px-3 py-1.5 text-base
@@ -44,6 +69,7 @@ export default function layout() {
                   id="email"
                   name="email"
                   type="email"
+                  onChange={(e)=>setEmail(e.target.value)}
                   required
                   autoComplete="email"
                   className="block w-full rounded-md  border border-black/10 bg-white px-3 py-1.5 text-base
@@ -65,6 +91,7 @@ export default function layout() {
                   id="password"
                   name="password"
                   type="password"
+                  onChange={(e)=>setPassword(e.target.value)}
                   required
                   autoComplete="current-password"
                   className="block w-full rounded-md border border-black/10 bg-white px-3 py-1.5 text-base 

@@ -1,7 +1,38 @@
 
-import React from 'react'
+'use client';
+
+import React, {useState} from 'react'
+import { useAppDispatch, useAppSelector } from '../lib/hook';
+import { login } from '../lib/features/authSlice';
+import { FormEvent } from 'react';
 import Link from 'next/link'
 export default function layout() {
+
+  //state for form input
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  //state for password visibility
+  const [seePassword, setSeepasswrod] = useState(false);
+
+  const dispatch = useAppDispatch();
+
+
+  //handle form submission
+  const handleLogin = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
+      const resultAction = await dispatch(login({ email, password }));
+      if(login.fulfilled.match(resultAction)){
+        window.location.reload();
+      }else if (login.rejected.match(resultAction)) {
+        console.log(resultAction.payload);      }
+    } catch (error:any) {
+      console.log(error.message);
+      
+    }
+  }
+
   return (
     <>
             <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -13,7 +44,7 @@ export default function layout() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6">
+          <form action="#" method="POST" className="space-y-6" onSubmit={handleLogin}>
             <div>
               <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
                 Email address
@@ -23,6 +54,7 @@ export default function layout() {
                   id="email"
                   name="email"
                   type="email"
+                  onChange={(e) => setEmail(e.target.value)}
                   required
                   autoComplete="email"
                   className="block w-full rounded-md  border border-black/10 bg-white px-3 py-1.5 text-base
@@ -48,6 +80,7 @@ export default function layout() {
                   id="password"
                   name="password"
                   type="password"
+                  onChange={(e) => setPassword(e.target.value)}
                   required
                   autoComplete="current-password"
                   className="block w-full rounded-md border border-black/10 bg-white px-3 py-1.5 text-base 
