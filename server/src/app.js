@@ -31,7 +31,7 @@ app.use(passport.initialize());
 
 
 const corsOptions = {
-    origin : ["http://localhost:3000", "https://unishop-frontend.vercel.app"],
+    origin : ["http://localhost:3000", "https://wayvi-server.vercel.app"],
     credentials  : true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
     allowedHeaders: ['Content-Type', 'Authorization']

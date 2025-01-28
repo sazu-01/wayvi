@@ -12,8 +12,7 @@ export default function layout() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  //state for password visibility
-  const [seePassword, setSeepasswrod] = useState(false);
+
 
   const dispatch = useAppDispatch();
 

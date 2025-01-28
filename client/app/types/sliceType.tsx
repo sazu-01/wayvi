@@ -49,6 +49,12 @@ export interface stateType {
 
 
 /*product slice types */
+
+export interface categoryType {
+    _id : string,
+    slug : string,
+    name : string
+}
   
 //define product interface
 export interface ProductType {
@@ -57,17 +63,15 @@ export interface ProductType {
     slug : string | undefined,
     images : string[],
     description : string,
-    category : string,
-    brand : string,
-    quantity : number,
+    category : categoryType
+    version : string,
     price : number,
-    status : boolean,
 }
 
 //define initialState interface
 export interface Products {
     isLoading : boolean,
-    products : ProductType[] | null,
+    templates : ProductType[] | null,
     error : string | null
 }
 

@@ -21,7 +21,7 @@ const Navbar = () => {
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h2 className="text-white font-extrabold text-2xl">Wayvi</h2>
+            <Link href={`/`} className="text-white font-extrabold text-2xl">Wayvi</Link>
           </div>
 
           {/* Desktop Menu */}

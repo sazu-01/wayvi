@@ -1,11 +1,12 @@
 
 import { configureStore } from '@reduxjs/toolkit'
 import authReducer from "./features/authSlice"
-
+import templateReducer from "./features/templateSlice"
 export const makeStore = () => {
   return configureStore({
     reducer: {
       auth : authReducer,
+      templates : templateReducer
     }
   })
 }
