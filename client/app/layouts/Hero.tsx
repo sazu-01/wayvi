@@ -7,13 +7,13 @@ import Image from "next/image";
 import cover1 from "@/public/cover1.png";
 import cover3 from "@/public/cover3.png";
 import responsive2 from "@/public/responsive2.png";
-import { useAppSelector } from "../lib/hook";
+
 
 
 const HomeCover = () => {
 
-  const { templates } = useAppSelector((state:any)=> state.templates);
-  console.log(templates);
+
+  
   return (
    
 

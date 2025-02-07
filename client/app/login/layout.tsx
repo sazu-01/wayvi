@@ -2,16 +2,18 @@
 'use client';
 
 import React, {useState} from 'react'
-import { useAppDispatch, useAppSelector } from '../lib/hook';
+import { useAppDispatch } from '../lib/hook';
 import { login } from '../lib/features/authSlice';
 import { FormEvent } from 'react';
-import Link from 'next/link'
+import Link from 'next/link';
+import { Eye, EyeOff, Mail, Lock, User } from 'lucide-react';
 export default function layout() {
 
   //state for form input
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
+  const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
 
   const dispatch = useAppDispatch();
@@ -34,79 +36,104 @@ export default function layout() {
 
   return (
     <>
-            <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
-        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-
-          <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-            Sign in to your account
-          </h2>
-        </div>
-
-        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form action="#" method="POST" className="space-y-6" onSubmit={handleLogin}>
-            <div>
-              <label htmlFor="email" className="block text-sm/6 font-medium text-gray-900">
-                Email address
-              </label>
-              <div className="mt-2">
-                <input
-                  id="email"
-                  name="email"
-                  type="email"
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  autoComplete="email"
-                  className="block w-full rounded-md  border border-black/10 bg-white px-3 py-1.5 text-base
-                   text-gray-900 outline-1 outline-offset-1 outline-gray-300 placeholder:text-gray-400 
-                   focus:outline-3 focus:-outline-offset-3 focus:outline-indigo-600 sm:text-sm/6"
-                />
+<div className="min-h-screen bg-gradient-to-br from-indigo-50 via-white to-indigo-50 flex flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="mx-auto w-full max-w-md bg-white rounded-xl shadow-lg overflow-hidden">
+        <div className="p-8">
+          <div className="space-y-1 mb-8">
+            <div className="flex justify-center">
+              <div className="w-12 h-12 rounded-full bg-indigo-600 flex items-center justify-center">
+                <User className="h-6 w-6 text-white" />
               </div>
             </div>
+            <h2 className="text-2xl font-bold text-center text-gray-900 mt-4">
+              Welcome back
+            </h2>
+            <p className="text-sm text-center text-gray-500">
+              Sign in to your account
+            </p>
+          </div>
 
-            <div>
-              <div className="flex items-center justify-between">
-                <label htmlFor="password" className="block text-sm/6 font-medium text-gray-900">
-                  Password
+          <form onSubmit={handleLogin} className="space-y-6">
+            <div className="space-y-4">
+              <div>
+                <label className="text-sm font-medium text-gray-700 block mb-1">
+                  Email Address
                 </label>
-                <div className="text-sm">
-                  <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                    Forgot password?
-                  </a>
+                <div className="relative">
+                  <input
+                    type="email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    className="pl-10 pr-4 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-200 ease-in-out"
+                    placeholder="you@example.com"
+                    required
+                  />
+                  <Mail className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
                 </div>
               </div>
-              <div className="mt-2">
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  autoComplete="current-password"
-                  className="block w-full rounded-md border border-black/10 bg-white px-3 py-1.5 text-base 
-                  text-gray-900 outline-1 300 placeholder:text-gray-400 
-                  focus:outline-3 focus:-outline-offset-3 focus:outline-indigo-600 sm:text-sm/6"
-                />
+
+              <div>
+                <div className="flex items-center justify-between mb-1">
+                  <label className="text-sm font-medium text-gray-700">
+                    Password
+                  </label>
+                  <Link
+                    href="#"
+                    className="text-sm font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200"
+                  >
+                    Forgot password?
+                  </Link>
+                </div>
+                <div className="relative">
+                  <input
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    className="pl-10 pr-12 py-2 w-full border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:border-transparent transition-all duration-200 ease-in-out"
+                    placeholder="••••••••"
+                    required
+                  />
+                  <Lock className="h-5 w-5 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                  <button
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  >
+                    {showPassword ? (
+                      <EyeOff className="h-5 w-5" />
+                    ) : (
+                      <Eye className="h-5 w-5" />
+                    )}
+                  </button>
+                </div>
               </div>
             </div>
 
-            <div>
-              <button
-                type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm/6 font-semibold text-white shadow-xs hover:bg-indigo-500 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+            <button
+              type="submit"
+              disabled={isLoading}
+              className="w-full bg-indigo-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600 transition-all duration-200 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+            >
+              {isLoading ? (
+                <div className="h-5 w-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                'Sign in'
+              )}
+            </button>
+
+            <div className="text-center text-sm text-gray-500">
+              Don't have an account?{' '}
+              <Link
+                href="/register"
+                className="font-medium text-indigo-600 hover:text-indigo-500 transition-colors duration-200"
               >
-                Sign in
-              </button>
+                Create account
+              </Link>
             </div>
           </form>
-
-          <p className="mt-10 text-center text-sm/6 text-gray-500">
-            Don't have an account?
-            <Link href="/register" className="font-semibold text-indigo-600 hover:text-indigo-500">
-             please register
-            </Link>
-          </p>
         </div>
       </div>
+    </div>
     </>
   )
 }

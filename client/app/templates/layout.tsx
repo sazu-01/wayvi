@@ -5,6 +5,7 @@ import { useAppSelector } from '../lib/hook';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Layout, Store, UtensilsCrossed } from 'lucide-react';
+import Loading from '../components/Loading';
 
 export default function Templates() {
   const { templates } = useAppSelector((state) => state.templates);
@@ -27,11 +28,7 @@ export default function Templates() {
   }, [templates]);
  
   if (!templates) {
-    return (
-      <div className="flex items-center justify-center min-h-screen">
-        <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-blue-500"></div>
-      </div>
-    );
+    return <Loading />
   }
 
   const handleCategoryChange = (category: any, websites: any) => {
@@ -83,7 +80,7 @@ export default function Templates() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {website?.map((web) => (
                 <Link 
-                  href="https://unishop-frontend.vercel.app/"
+                href={`/product/${web.slug}`}
                   target="_blank"
                   className="group block"
                   key={web._id}
