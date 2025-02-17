@@ -17,7 +17,7 @@ import {
 
 const CreateTemplateController = async (req, res, next) => {
   try {
-    const { title, version, description, category, price } =
+    const { title, link, version, description, category, price } =
       req.body;
 
     //checking if images are uploaded with the request
@@ -26,6 +26,7 @@ const CreateTemplateController = async (req, res, next) => {
     //creating an object with product data
     const productData = {
       title,
+      link,
       slug: slugify(title),
       version,
       images,

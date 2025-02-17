@@ -15,6 +15,10 @@ const templateSchema = new Schema(
       required: [true, "slug must be provided"],
     },
 
+    link : {
+      type : String,
+    },
+
     version : {
       type  : String,
       enum : ["Free", "Standard", "Premium", "Enterprise"]

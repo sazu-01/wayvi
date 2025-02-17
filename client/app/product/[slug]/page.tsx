@@ -7,10 +7,13 @@ import { singleProductType } from "@/app/types/productTypes";
 import Loading from "@/app/components/Loading";
 import Image from "next/image";
 import Link from "next/link";
+import { useAppSelector } from "@/app/lib/hook";
 
 export default function page() {
   const { slug } = useParams();
 
+  const { user } = useAppSelector((state)=> state.auth);
+   
   const [SingleProduct, setSingleProduct] = useState<singleProductType | null>(
     null
   );
@@ -43,7 +46,7 @@ export default function page() {
           {/* Image Section */}
           <div className="lg:w-1/2">
             <div className="relative rounded-lg overflow-hidden shadow-lg bg-white p-4">
-              <Link  href="https://unishop-frontend.vercel.app" target="_blank" >
+              <Link  href={`${SingleProduct.link}`} target="_blank" >
               <Image
                 src={SingleProduct.images[0]}
                 alt={SingleProduct.title}
@@ -67,11 +70,11 @@ export default function page() {
                <p className="font-semibold opacity-[0.8]">20+ reusable components</p>
                <p className="font-semibold opacity-[0.8]">responsive and beautiful layout</p>
                <p className="font-semibold opacity-[0.8]">organized code and use of best practise</p>
-               <p></p>
+               
 
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
                 <Link
-                  href=""
+                  href={user !==null ? `www.facebook.com` : `/login`}
                   className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
                 >
                   <svg
@@ -92,7 +95,7 @@ export default function page() {
                 </Link>
                 
                 <Link
-                  href="https://unishop-frontend.vercel.app/"
+                  href={`${SingleProduct.link}`}
                   target="_blank"
                   className="inline-flex items-center justify-center px-6 py-3 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 transition-colors duration-200"
                 >

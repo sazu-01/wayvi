@@ -84,7 +84,7 @@ const GetSingleUserByID = async (req, res, next) => {
 const RegisterProcess = async (req, res, next) => {
   try {
     //destructure name email phone and password from req.body
-    const { name, email, phone, password, address } = req.body;
+    const { name, email, phone, password } = req.body;
 
     //get the default Image For User
     const image = defaultImageForUser;
@@ -96,16 +96,16 @@ const RegisterProcess = async (req, res, next) => {
     }
 
     //check if a user with the provided phone number already exist
-    // const existingUserViaPhone = await Users.exists({ phone: phone });
-    // if (existingUserViaPhone) {
-    //   throw HttpError(
-    //     422,
-    //     "already have a user with this number try another number"
-    //   );
-    // }
+    const existingUserViaPhone = await Users.exists({ phone: phone });
+    if (existingUserViaPhone) {
+      throw HttpError(
+        422,
+        "already have a user with this number try another number"
+      );
+    }
 
     //make an user object with data
-    const userData = { name, email, phone, password, address, image };
+    const userData = { name, email, phone, password, image };
 
     //create a json web token for the new user
     const token = CreateJsonWebToken(userData, jwtPrivateKey, "10m");
@@ -116,14 +116,45 @@ const RegisterProcess = async (req, res, next) => {
       email,
       subject: "Activation Email From UniShop",
       html: `
-            <h2>Hello ${name}</h2>
-            <p>please click on the following link to activate your email</p>
-            <a href="${clientUrl}api/users/activate/${token}" target="blank">
-            activate account</a>`,
+            <!DOCTYPE html>
+        <html>
+        <head>
+          <style>
+            .button {
+              background-color: #4CAF50;
+              border: none;
+              color: white;
+              padding: 15px 32px;
+              text-align: center;
+              text-decoration: none;
+              display: inline-block;
+              font-size: 16px;
+              margin: 4px 2px;
+              cursor: pointer;
+              border-radius: 4px;
+            }
+          </style>
+        </head>
+        <body>
+          <div style="max-width: 600px; margin: 0 auto; padding: 20px; background-color:"#F6F6F6">
+            <h2>Welcome to Wayvi, ${name}!</h2>
+            <p>Thank you for registering. Please click the button below to activate your account:</p>
+            <div style="text-align: center; margin: 30px 0;">
+              <a href="${clientUrl}/verify/${token}" target="_blank" class="button" style="color: white;">
+                Activate Account
+              </a>
+            </div>
+            <p>Or copy and paste this link in your browser:</p>
+            <p>${clientUrl}/verify/${token}</p>
+            <p>This link will expire in 10 minutes.</p>
+            <p>If you didn't create an account with UniShop, please ignore this email.</p>
+          </div>
+        </body>
+        </html>`,
     };
 
     //Process of Email
-    ProcessEmail(emailData);
+    await ProcessEmail(emailData);
 
     // send a response with a message and the generated token
     return SuccessResponse(res, {

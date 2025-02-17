@@ -9,6 +9,8 @@ import Loading from '../components/Loading';
 
 export default function Templates() {
   const { templates } = useAppSelector((state) => state.templates);
+
+  
   
   const restaurantWebsite = templates?.filter((template) => 
     template.category.name === "restaurant"
@@ -80,8 +82,7 @@ export default function Templates() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {website?.map((web) => (
                 <Link 
-                href={`/product/${web.slug}`}
-                  target="_blank"
+                  href={web?.link ? `/product/${web.slug}` : `/`}
                   className="group block"
                   key={web._id}
                 >

@@ -3,10 +3,12 @@
 import Link from "next/link";
 import React, { useState } from "react";
 import { Bars3Icon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useAppSelector } from "../lib/hook";
+import Image from "next/image";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  
+  const { user } = useAppSelector((state) => state.auth);
   const mainNavigation = [
     { name: "Templates", href: "/templates" },
     { name: "Features", href: "/features" },
@@ -45,6 +47,8 @@ const Navbar = () => {
           </div>
 
           {/* Desktop Auth Buttons */}
+          {user !== null ? <div className="">
+            <Image className="rounded-[50%]" src={user.image} width={40} height={40} alt="" /></div> : 
           <div className="hidden sm:flex items-center space-x-4">
             {authNavigation.map((item) => (
               <Link
@@ -59,7 +63,8 @@ const Navbar = () => {
                 {item.name}
               </Link>
             ))}
-          </div>
+          </div>}
+          
 
           {/* Mobile Menu Button */}
           <div className="sm:hidden">

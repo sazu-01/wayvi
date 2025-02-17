@@ -13,14 +13,10 @@ import responsive2 from "@/public/responsive2.png";
 const HomeCover = () => {
 
 
-  
   return (
-   
-
     <>
-<section id="home-cover">
       {/* Container with overflow hidden and whitespace nowrap */}
-      <div className="w-full overflow-hidden whitespace-nowrap xl:max-w-[1366px] xl:mx-auto">
+      <div className="w-full lg:h-[45rem] overflow-hidden whitespace-nowrap xl:max-w-[1366px] xl:mx-auto">
         {/* Scrolling container with animation */}
         <div className="inline-block animate-[scroll_25s_linear_infinite]">
           {/* Image container with overlay */}
@@ -35,7 +31,7 @@ const HomeCover = () => {
           </div>
         </div>
       </div>
-    </section>
+  
 
     </>
   )

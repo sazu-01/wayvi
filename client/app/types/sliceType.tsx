@@ -61,6 +61,7 @@ export interface ProductType {
     _id : string,
     title : string,
     slug : string | undefined,
+    link : string | undefined,
     images : string[],
     description : string,
     category : categoryType

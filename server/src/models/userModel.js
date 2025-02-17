@@ -28,7 +28,8 @@ const userSchema = new Schema(
     },
 
     phone: {
-      type: Number,
+      type: String,
+      required : true,
       unique: [true, "already have an account with this number"],
       trim: true,
       minLength: [9, "number is too short"],
