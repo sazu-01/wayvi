@@ -9,11 +9,12 @@ import Image from "next/image";
 import Link from "next/link";
 import { useAppSelector } from "@/app/lib/hook";
 
+
 export default function page() {
   const { slug } = useParams();
 
-  const { user } = useAppSelector((state)=> state.auth);
-   
+  const { isLoggedIn } = useAppSelector((state)=> state.auth);
+  
   const [SingleProduct, setSingleProduct] = useState<singleProductType | null>(
     null
   );
@@ -31,8 +32,8 @@ export default function page() {
     fetchSingleProduct();
   }, [slug]);
 
-  console.log(SingleProduct);
 
+  
   if (!SingleProduct) {
     return <Loading />;
   }
@@ -74,7 +75,7 @@ export default function page() {
 
               <div className="flex flex-col sm:flex-row gap-4 mt-8">
                 <Link
-                  href={user !==null ? `www.facebook.com` : `/login`}
+                  href={ isLoggedIn ? `/dashbaord` : `/login`}
                   className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-medium rounded-lg hover:bg-blue-700 transition-colors duration-200"
                 >
                   <svg

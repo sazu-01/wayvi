@@ -2,6 +2,7 @@
 "use client";
 
 import { CheckIcon } from '@heroicons/react/20/solid'
+import { useAppSelector } from '../lib/hook';
 
 const tiers = [
   {
@@ -59,6 +60,9 @@ function classNames(...classes : any[]) {
 }
 
 export default function ProcingLayout() {
+
+   const { isLoggedIn } = useAppSelector((state) => state.auth);
+
   return (
     <div className="relative isolate bg-white px-6 py-24 sm:py-32 lg:px-8">
       <div aria-hidden="true" className="absolute inset-x-0 -top-3 -z-10 transform-gpu overflow-hidden px-36 blur-3xl">
@@ -127,7 +131,7 @@ export default function ProcingLayout() {
               ))}
             </ul>
             <a
-              href={tier.href}
+              href={isLoggedIn ? "/online-payment" : "/login"}
               aria-describedby={tier.id}
               className={classNames(
                 tier.featured

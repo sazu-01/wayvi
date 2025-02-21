@@ -14,7 +14,7 @@ export default function GlobalDataProvide({
   }) {
     const dispatch = useAppDispatch()
     const { isLoggedIn } = useAppSelector((state: RootState) => state.auth)
-  
+    
     useEffect(() => {
       dispatch(getProduct())
       
