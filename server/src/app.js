@@ -18,6 +18,7 @@ import categoryRouter from "./routers/categoryRouter.js";
 import templateRouter from "./routers/templateRouter.js";
 
 import passport  from "./config/passport.js";
+import paymentRouter from "./routers/paymentRouter.js";
 
 //create an express application;
 const app = express();
@@ -43,6 +44,7 @@ app.use("/api/users", userRouter);
 app.use("/api/auth",authRouter); 
 app.use("/api/categories",categoryRouter);
 app.use("/api/template",templateRouter);
+app.use("/api/payment", paymentRouter);
 
 
 //home route

@@ -69,7 +69,7 @@ const LoginController = async (req, res, next) => {
     SetRefreshTokenCookie(res, refreshToken);
 
     //create a jwt access key
-    const accessToken = CreateJsonWebToken({ user }, jwtAccessKey, "15m");
+    const accessToken = CreateJsonWebToken({ user }, jwtAccessKey, "10d");
 
     //set accessToken to cookie
     SetAccessTokenCookie(res, accessToken);
@@ -138,7 +138,7 @@ const HandleRefreshToken = async (req, res, next) => {
     const user = await Users.findById(id);
 
     //create a jwt access key
-    const accessToken = CreateJsonWebToken({ user }, jwtAccessKey, "15m");
+    const accessToken = CreateJsonWebToken({ user }, jwtAccessKey, "10d");
 
     //set accessToken to cookie
     SetAccessTokenCookie(res, accessToken);

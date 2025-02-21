@@ -131,7 +131,7 @@ export default function ProcingLayout() {
               ))}
             </ul>
             <a
-              href={isLoggedIn ? "/online-payment" : "/login"}
+              href={isLoggedIn ? `/payment` : `/login`}
               aria-describedby={tier.id}
               className={classNames(
                 tier.featured

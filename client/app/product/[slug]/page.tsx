@@ -34,6 +34,7 @@ export default function page() {
 
 
   
+  
   if (!SingleProduct) {
     return <Loading />;
   }
@@ -49,7 +50,7 @@ export default function page() {
             <div className="relative rounded-lg overflow-hidden shadow-lg bg-white p-4">
               <Link  href={`${SingleProduct.link}`} target="_blank" >
               <Image
-                src={SingleProduct.images[0]}
+                src={`${SingleProduct.images[0]}`}
                 alt={SingleProduct.title}
                 width={500}
                 height={500}

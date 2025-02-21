@@ -6,7 +6,8 @@ import MyStore from "./store/layout";
 
 export default function Home() {
   const { isLoggedIn } = useAppSelector((state)=> state.auth);
-
+  
+  
   return (
     <>
    { isLoggedIn ? <MyStore /> : 

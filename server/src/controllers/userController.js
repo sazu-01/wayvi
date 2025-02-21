@@ -114,7 +114,7 @@ const RegisterProcess = async (req, res, next) => {
     const emailData = {
       name,
       email,
-      subject: "Activation Email From UniShop",
+      subject: "Activation Email From Wayvi",
       html: `
             <!DOCTYPE html>
         <html>
@@ -147,7 +147,7 @@ const RegisterProcess = async (req, res, next) => {
             <p>Or copy and paste this link in your browser:</p>
             <p>${clientUrl}/verify/${token}</p>
             <p>This link will expire in 10 minutes.</p>
-            <p>If you didn't create an account with UniShop, please ignore this email.</p>
+            <p>If you didn't create an account with Wayvi, please ignore this email.</p>
           </div>
         </body>
         </html>`,

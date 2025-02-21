@@ -129,7 +129,7 @@ export default function MyStore() {
         <div>
           <h3 className="font-medium text-yellow-800">Store is inactive</h3>
           <p className="text-yellow-700 text-sm">
-           update your plan to activate your store.
+           <Link href={`/pricing`} className='underline'>update your plan</Link> to activate your store.
           </p>
         </div>
       </div>
