@@ -5,7 +5,7 @@ import { useAppSelector } from '../lib/hook'
 import DashboardNavbar from '../layouts/DashboardNavbar';
 import Navbar from '../layouts/Navbar';
 import Footer from '../layouts/Footer';
-
+import WhatsAppBtn from './WhatsAppBtn';
 interface LayoutWrapperProps{
     children : ReactNode
 }
@@ -18,6 +18,7 @@ export default function LayoutWrapper({children} : LayoutWrapperProps) {
     <>
      {isLoggedIn ? <DashboardNavbar /> : <Navbar />}
      {children}
+        <WhatsAppBtn />
      <Footer />
     </>
   )

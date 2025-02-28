@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { api } from '../utili/axiosConfig';
 import { singleProductType } from '../types/productTypes';
+import WhatsAppBtn from '../components/WhatsAppBtn';
 
 export default function MyStore() {
   const [singleProduct, setSingleProduct] = useState<singleProductType | null>(null);
@@ -133,6 +134,7 @@ export default function MyStore() {
           </p>
         </div>
       </div>
+      <WhatsAppBtn />
     </div>
   );
 }
